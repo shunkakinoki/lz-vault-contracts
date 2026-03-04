@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.22;
 
-import { Test } from "forge-std/Test.sol";
-import { SendParam } from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
+import {Test} from "forge-std/Test.sol";
+import {SendParam} from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
 
 contract ComposeMessageTest is Test {
     function _defaultSendParam() private pure returns (SendParam memory) {
@@ -39,7 +39,7 @@ contract ComposeMessageTest is Test {
     function test_threeFieldDecode_extractsRefundAddress() public pure {
         bytes memory encoded = abi.encode(_defaultSendParam(), 0.01 ether, address(0xBEEF));
 
-        (, , address decoded) = abi.decode(encoded, (SendParam, uint256, address));
+        (,, address decoded) = abi.decode(encoded, (SendParam, uint256, address));
 
         assertEq(decoded, address(0xBEEF));
     }

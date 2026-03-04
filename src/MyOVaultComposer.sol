@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.22;
 
-import { SendParam } from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
-import { OFTComposeMsgCodec } from "@layerzerolabs/oft-evm/contracts/libs/OFTComposeMsgCodec.sol";
-import { VaultComposerSync } from "@layerzerolabs/ovault-evm/contracts/VaultComposerSync.sol";
+import {SendParam} from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
+import {OFTComposeMsgCodec} from "@layerzerolabs/oft-evm/contracts/libs/OFTComposeMsgCodec.sol";
+import {VaultComposerSync} from "@layerzerolabs/ovault-evm/contracts/VaultComposerSync.sol";
 
 /**
  * @title MyOVaultComposer
@@ -18,15 +18,12 @@ contract MyOVaultComposer is VaultComposerSync {
 
     constructor(address _vault, address _assetOFT, address _shareOFT) VaultComposerSync(_vault, _assetOFT, _shareOFT) {}
 
-    function _refund(
-        address _oft,
-        bytes calldata _message,
-        uint256 _amount,
-        address _refundAddress,
-        uint256 _msgValue
-    ) internal override {
+    function _refund(address _oft, bytes calldata _message, uint256 _amount, address _refundAddress, uint256 _msgValue)
+        internal
+        override
+    {
         bytes memory composeMsg = _message.composeMsg();
-        (, , address refundTo) = abi.decode(composeMsg, (SendParam, uint256, address));
+        (,, address refundTo) = abi.decode(composeMsg, (SendParam, uint256, address));
 
         SendParam memory refundSendParam;
         refundSendParam.dstEid = OFTComposeMsgCodec.srcEid(_message);
