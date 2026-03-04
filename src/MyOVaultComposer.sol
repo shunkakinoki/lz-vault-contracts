@@ -27,7 +27,7 @@ contract MyOVaultComposer is VaultComposerSync {
 
         SendParam memory refundSendParam;
         refundSendParam.dstEid = OFTComposeMsgCodec.srcEid(_message);
-        refundSendParam.to = OFTComposeMsgCodec.addressToBytes32(refundTo);
+        refundSendParam.to = refundTo;
         refundSendParam.amountLD = _amount;
 
         _sendRemote(_oft, refundSendParam, _refundAddress, _msgValue);
