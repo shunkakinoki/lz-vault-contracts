@@ -8,7 +8,7 @@ import { VaultComposerSync } from "@layerzerolabs/ovault-evm/contracts/VaultComp
 /**
  * @title MyOVaultComposer
  * @notice Overrides _refund to send tokens to the user's address (decoded from the compose
- *         message) instead of composeFrom (TrailsRouter) and tx.origin (LZ Executor).
+ *         message) instead of composeFrom (TrailsRouter) so that users can receive refunds directly on origin chain in the case of a failed compose.
  * @dev The compose message is ABI-encoded as (SendParam, uint256 minMsgValue, address refundAddress).
  *      The base VaultComposerSync only decodes (SendParam, uint256) — the third field is ignored
  *      by Solidity's abi.decode, making this backward-compatible.
