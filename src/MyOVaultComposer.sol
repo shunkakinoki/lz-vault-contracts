@@ -22,7 +22,7 @@ contract MyOVaultComposer is VaultComposerSync {
         address _oft,
         bytes calldata _message,
         uint256 _amount,
-        address, // tx.origin (LZ Executor) — ignored, decoded from compose message instead
+        address _refundAddress,
         uint256 _msgValue
     ) internal override {
         bytes memory composeMsg = _message.composeMsg();
@@ -33,6 +33,6 @@ contract MyOVaultComposer is VaultComposerSync {
         refundSendParam.to = OFTComposeMsgCodec.addressToBytes32(refundTo);
         refundSendParam.amountLD = _amount;
 
-        _sendRemote(_oft, refundSendParam, tx.origin, _msgValue);
+        _sendRemote(_oft, refundSendParam, _refundAddress, _msgValue);
     }
 }
